@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:mausam/Activity/Home.dart';
+import 'package:mausam/Activity/Loading.dart';
+import 'package:mausam/Activity/Location.dart';
 
 void main() {
-  runApp(const MaterialApp());
+  runApp(MaterialApp(
+debugShowCheckedModeBanner: false,
+    routes: {
+      "/" : (context) =>  const Loading(),
+      "/home": (context) =>  const Home(),
+      "/location": (context) => const Location(),
+    },    
+  ));
 }
 
