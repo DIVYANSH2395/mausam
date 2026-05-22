@@ -11,7 +11,19 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  SafeArea(child: Text("Home Activity"))
+      appBar: AppBar(
+        title: Text("Home Activity"),
+      ),
+      body:  
+      Column(
+        children: <Widget>[
+          FloatingActionButton(onPressed: () {},
+            
+          ),
+          
+          Text("Kuch Nahi")
+        ],
+      )
     );
   }
 }
