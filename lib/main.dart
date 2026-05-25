@@ -4,13 +4,23 @@ import 'package:mausam/Activity/Loading.dart';
 import 'package:mausam/Activity/Location.dart';
 
 void main() {
-  runApp(MaterialApp(
-debugShowCheckedModeBanner: false,
-    routes: {
-      "/" : (context) =>  const Loading(),
-      "/home": (context) =>  const Home(),
-      "/location": (context) => const Location(),
-    },    
-  ));
+  runApp(
+    MyWidget()
+  );
+
+
+
+
 }
 
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Loading(),
+    );
+  }
+}
