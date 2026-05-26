@@ -24,7 +24,7 @@ class Worker {
 }
 
 Future<Worker> getdata () async{
-  Response response = await get(Uri.parse("https://api.openweathermap.org/data/2.5/weather?q=Location&appid=1c8e7b9a0c3d1f0e4b8c8c8c8c8c8c"));
+  Response response = await get(Uri.parse("https://api.openweathermap.org/data/2.5/weather?q=Bhilwara&appid=1c8b9e7a0c3d9e4f1b8c8e5f6a7b8c9&units=metric"));
   Map data = jsonDecode(response.body);
 
 //Getting Description and Main

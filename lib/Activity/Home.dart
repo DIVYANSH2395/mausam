@@ -10,6 +10,9 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+
+
+    Map info = ModalRoute.of(context)?.settings.arguments as Map;
     return Scaffold(
       appBar: AppBar(
         title: Text("Home Activity"),
@@ -21,7 +24,11 @@ class _HomeState extends State<Home> {
             
           ),
           
-          Text("Kuch Nahi")
+          Text(info ['temp_value']),
+          Text(info ['hum_value']),
+          Text(info ['air_speed_value']),
+          Text(info ['description_value']),
+          Text(info ['main_value']),
         ],
       )
     );

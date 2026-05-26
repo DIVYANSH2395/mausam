@@ -10,36 +10,65 @@ class Loading extends StatefulWidget {
 
 class _LoadingState extends State<Loading> {
 
-Worker instance = Worker (location: "Bhilwara", temp: '', humidity: '', air_speed: '', description: '', main: '');
+  // App Start Hote he 5sec wait then home page pr redirectby context 
+  void startApp() {
 
-void startApp() async {
-    Worker instance = Worker (location: "Bhilwara", temp: '', humidity: '', air_speed: '', description: '', main: '');
+  Future.delayed(Duration(seconds: 5), () {
 
-  instance.getData();
-  print(instance.air_speed);
+    Navigator.pushReplacementNamed(context, "/home");
+
+  });
+
 }
 
-@ override
-void initState() {  
-  print(instance.air_speed);
-  startApp();
+
+@override
+void initState() {
   super.initState();
 
-} 
+  startApp();
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
-    
-      body: SafeArea(
-        child: Column( children: <Widget>[
-        ElevatedButton.icon(onPressed: (){
-          Navigator.pushNamed(context, "/home");
-        
-        }, icon: Icon (Icons.add_to_home_screen),label: Text("Go to Home"))
-        ],
+      // appBar: AppBar(
+      //   title: Text("hello"),
+      // ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image.asset(
+              "lib/ActivityPages/assets/images/AppIconImage.jpg",
+              width: 120,
+              height: 200,
+            ),
+
+            Text(
+              "Mousam App",
+              style: TextStyle(
+                fontSize: 40,
+                fontWeight: FontWeight.w500,
+                color: const Color.fromARGB(255, 245, 243, 244),
+              ),
+            ),
+            SizedBox(height: 15),
+            Text(
+              "Made By Kartik Sharma",
+              style: TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.w400,
+                color: const Color.fromARGB(255, 245, 243, 244),
+              ),
+            ),
+
+            SizedBox(height: 25),
+          ],
         ),
       ),
+      backgroundColor: Colors.blue[200],
     );
   }
 }
+
