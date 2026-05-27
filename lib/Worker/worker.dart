@@ -1,9 +1,8 @@
 import 'package:http/http.dart';
 import 'dart:convert';
 
-
-
 class Worker {
+
   String location;
   String temp;
   String humidity;
@@ -19,53 +18,47 @@ class Worker {
     required this.description,
     required this.main,
   });
-
-  void getData() {}
 }
 
-Future<Worker> getdata () async{
-  Response response = await get(Uri.parse("https://api.openweathermap.org/data/2.5/weather?q=Bhilwara&appid=1c8b9e7a0c3d9e4f1b8c8e5f6a7b8c9&units=metric"));
+// Function
+Future<Worker> getData() async {
+
+  Response response = await get(
+    Uri.parse(
+      "https://api.openweathermap.org/data/2.5/weather?q=bhilwara&appid=a6993ccca3cf38ff015a5c11228d9260",
+    ),
+  );
+
   Map data = jsonDecode(response.body);
 
-//Getting Description and Main
-  List weather_data = data['weather'];
-  Map weather_main = weather_data[0];
-  String getMain_des = weather_main['main'];
-  String getDesc = weather_main['description'];
+  // Weather
+  List weatherData = data['weather'];
+  Map weatherMain = weatherData[0];
 
+  String getMain = weatherMain['main'];
+  String getDesc = weatherMain['description'];
 
+  // Temperature & Humidity
+  Map mainData = data['main'];
 
+  double getTemp = data['main']['temp'];
+  int getHumidity = data['main']['humidity'];
 
-//Getting Temperature, Humidity
-  Map temp_data = data['main'];
- double getHumidity = temp_data['humidity'];
-  double getTemp = temp_data['temp'];
-
-//Getting Air Speed
-
+  // Wind Speed
   Map wind = data['wind'];
-  double air_speed = wind["speed"];
- 
 
- //Assigning Values and return worker instance
- String tempStr = getTemp.toString();
- String humidityStr = getHumidity.toString();
- String airSpeedStr = air_speed.toString();
+  double getAirSpeed = wind['speed'];
 
+  // Location Name
+  String location = data['name'];
 
- // Get location name if available
- String locationName = data.containsKey('name') ? data['name'].toString() : 'Unknown';
-
- // Create and return Worker instance
- return Worker(
-   location: locationName,
-   temp: tempStr,
-   humidity: humidityStr,
-   air_speed: airSpeedStr,
-   description: getDesc,
-   main: getMain_des,
- );
+  // Return Object
+  return Worker(
+    location: location,
+    temp: getTemp.toString(),
+    humidity: getHumidity.toString(),
+    air_speed: getAirSpeed.toString(),
+    description: getDesc,
+    main: getMain,
+  );
 }
-
- 
-

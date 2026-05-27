@@ -39,8 +39,9 @@ void initState() {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+
             Image.asset(
-              "lib/ActivityPages/assets/images/AppIconImage.jpg",
+"Assets/images/AppIconImage.jpg",
               width: 120,
               height: 200,
             ),
@@ -71,4 +72,3 @@ void initState() {
     );
   }
 }
-

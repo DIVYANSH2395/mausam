@@ -8,29 +8,37 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
   @override
   Widget build(BuildContext context) {
 
+    Map info =
+        ModalRoute.of(context)?.settings.arguments as Map? ?? {};
 
-    Map info = ModalRoute.of(context)?.settings.arguments as Map;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Home Activity"),
+        title: const Text("Home Activity"),
       ),
-      body:  
-      Column(
+
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          FloatingActionButton(onPressed: () {},
-            
+
+          FloatingActionButton(
+            onPressed: () {},
           ),
-          
-          Text(info ['temp_value']),
-          Text(info ['hum_value']),
-          Text(info ['air_speed_value']),
-          Text(info ['description_value']),
-          Text(info ['main_value']),
+
+          Text(info['temp_value']?.toString() ?? "No Temp"),
+
+          Text(info['hum_value']?.toString() ?? "No Humidity"),
+
+          Text(info['air_speed_value']?.toString() ?? "No Air Speed"),
+
+          Text(info['description_value']?.toString() ?? "No Description"),
+
+          Text(info['main_value']?.toString() ?? "No Main"),
         ],
-      )
+      ),
     );
   }
 }
