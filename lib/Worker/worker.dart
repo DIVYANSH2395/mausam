@@ -2,7 +2,6 @@ import 'package:http/http.dart';
 import 'dart:convert';
 
 class Worker {
-
   String location;
   String temp;
   String humidity;
@@ -18,47 +17,58 @@ class Worker {
     required this.description,
     required this.main,
   });
+
+  get icon => null;
+
+  Future<void> getData() async {}
 }
 
-// Function
 Future<Worker> getData() async {
+  try {
+    Response response = await get(
+      Uri.parse(
+        "https://api.openweathermap.org/data/2.5/weather?q=Bhilwara&appid=a6993ccca3cf38ff015a5c11228d9260&units=metric",
+      ),
+    );
 
-  Response response = await get(
-    Uri.parse(
-      "https://api.openweathermap.org/data/2.5/weather?q=bhilwara&appid=a6993ccca3cf38ff015a5c11228d9260",
-    ),
-  );
+    if (response.statusCode == 200) {
+      Map data = jsonDecode(response.body);
 
-  Map data = jsonDecode(response.body);
+      // Weather Data
+      String getMain = data['weather'][0]['main'];
+      String getDesc = data['weather'][0]['description'];
 
-  // Weather
-  List weatherData = data['weather'];
-  Map weatherMain = weatherData[0];
+      // Temperature & Humidity
+      double getTemp = data['main']['temp'].toDouble();
+      int getHumidity = data['main']['humidity'];
 
-  String getMain = weatherMain['main'];
-  String getDesc = weatherMain['description'];
+      // Wind Speed
+      double getAirSpeed = data['wind']['speed'].toDouble();
 
-  // Temperature & Humidity
-  Map mainData = data['main'];
+      // Location
+      String location = data['name'];
 
-  double getTemp = data['main']['temp'];
-  int getHumidity = data['main']['humidity'];
+      return Worker(
+        location: location,
+        temp: getTemp.toString(),
+        humidity: getHumidity.toString(),
+        air_speed: getAirSpeed.toString(),
+        description: getDesc,
+        main: getMain,
+      );
+    } else {
+      throw Exception("API Error: ${response.statusCode}");
+    }
+  } catch (e) {
+    print("Error: $e");
 
-  // Wind Speed
-  Map wind = data['wind'];
-
-  double getAirSpeed = wind['speed'];
-
-  // Location Name
-  String location = data['name'];
-
-  // Return Object
-  return Worker(
-    location: location,
-    temp: getTemp.toString(),
-    humidity: getHumidity.toString(),
-    air_speed: getAirSpeed.toString(),
-    description: getDesc,
-    main: getMain,
-  );
+    return Worker(
+      location: "Unknown",
+      temp: "0",
+      humidity: "0",
+      air_speed: "0",
+      description: "No Data",
+      main: "Error",
+    );
+  }
 }

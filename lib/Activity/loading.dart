@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mausam/Worker/worker.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 
 class Loading extends StatefulWidget {
   const Loading({super.key});
@@ -11,21 +13,40 @@ class Loading extends StatefulWidget {
 class _LoadingState extends State<Loading> {
 
   // App Start Hote he 5sec wait then home page pr redirectby context 
-  void startApp() {
+  void startApp() async {
 
-  Future.delayed(Duration(seconds: 5), () {
+  await Future.delayed(Duration(seconds: 3));
 
-    Navigator.pushReplacementNamed(context, "/home");
+  Worker instance = Worker(
+    location: 'Ajmer',
+    temp: '',
+    humidity: '',
+    air_speed: '',
+    description: '',
+    main: '',
+  );
 
-  });
+  await instance.getData();
 
+  if (!mounted) return;
+
+  Navigator.pushReplacementNamed(
+    context,
+    "/home",
+    arguments: {
+      "temp": instance.temp,
+      "air_speed": instance.air_speed,
+      "humidity": instance.humidity,
+      "description": instance.description,
+      "main": instance.main,
+      "icon": instance.icon,
+    },
+  );
 }
-
 
 @override
 void initState() {
   super.initState();
-
   startApp();
 }
 
@@ -37,38 +58,23 @@ void initState() {
       // ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,  
           children: <Widget>[
-
-            Image.asset(
-"Assets/images/AppIconImage.jpg",
-              width: 120,
-              height: 200,
-            ),
-
-            Text(
-              "Mousam App",
-              style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.w500,
-                color: const Color.fromARGB(255, 245, 243, 244),
-              ),
-            ),
-            SizedBox(height: 15),
-            Text(
-              "Made By Kartik Sharma",
-              style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w400,
-                color: const Color.fromARGB(255, 245, 243, 244),
-              ),
-            ),
-
-            SizedBox(height: 25),
-          ],
+            Image.asset("lib/images/image.png",height: 230.0, width: 230.0,),
+            Text ("Mausam App",style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w500),),
+            SizedBox(height: 20.0,),
+            Text ("Made By Divyanshu Suwalka",
+            style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w400),),
+            SizedBox(height: 40.0,),
+            SpinKitWave(
+  color: Colors.red,
+  size: 50.0,
+),
+          ]
+        
         ),
       ),
-      backgroundColor: Colors.blue[200],
+      backgroundColor: Colors.blue[300],
     );
   }
 }
